@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title id="titleText">Mats Arduino Thing</title>
+  <meta charset="utf-8">
+  <meta name="iolab" content="testing-w-web-serial">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="globalVariables.js"></script>
+  <script src="run_control.js"></script>
+  <script src="main.js" defer></script>
+
+</head>
+
+<body>
+  <header class="header">
+    <h1>
+      <label class="iolab"> <span> 
+        <a href="changelog.txt" title="Click here for changelog and other information about this application" target="_blank" style="color:rgb(255, 242, 182); text-decoration: none; "><i><b>Arduino Tester</b></i></a></span> </label> 
+    </h1>
+  </header>
+
+  <div id="notSupported" class="hidden">
+    <b>Web Serial</b> is not supported on this device. Please
+    Chrome 89 or later. For earlier version of Chrome (78 through 88) you will need to set the<br />
+    <code>#enable-experimental-web-platform-features</code> flag in
+    <code>chrome://flags</code>
+  </div>
+
+  <div class="topcontrol">
+    <p></p>
+
+    <table>
+      <tr>
+        <td>
+          <a href="" id="resetApp" onclick="resetApp()" title="Restart (data is cleared and device is turned off)"
+            style="cursor: pointer;"><img src="images/reset.PNG" valign="middle" height="30"></a>
+            &nbsp;
+
+          &nbsp;
+          <a id="butConnect" title="Make or Break Serial Connection to Dongle" style="cursor: pointer;">
+            <img id="connectImg" src="images/connect.PNG" valign="middle"></a>
+          &nbsp;
+
+        </td>
+
+    </table>
+
+    <br />
+
+  <!-- For Debugging -->
+  <div id="debugStuff">
+
+    <div id="textAreaContainer">
+      <table>
+        <tr>
+          <td>Tx:</td>
+          <td>Rx:</td>
+        </tr>
+        <tr>
+          <td><textarea id="dataBoxTx" rows="10" cols="30"
+              style="overflow:scroll; resize:horizontal; min-width:200px;"></textarea></td>
+          <td><textarea id="dataBoxRx" rows="10" cols="60"
+              style="overflow:scroll; resize:horizontal; min-width:200px;"></textarea></td>
+        </tr>
+      </table>
+    </div>
+
+    <p> <button id="butDebug" type="button">Debug</button></p>
+  </div>
+
+</body>
+
+</html>
