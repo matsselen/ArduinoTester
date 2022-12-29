@@ -21,6 +21,7 @@ async function connectAndStart() {
     console.log("Opening port");
     try {
         await port.open({ baudRate: 115200, baudrate: 115200 });
+        //await port.open({ baudRate: 9600, baudrate: 9600 });
         // yes - you need both if you want it to run on Chromebooks
     } catch (e) {
         alert(
@@ -41,7 +42,7 @@ async function connectAndStart() {
     // Launch the reading loop. This runs forever (until the serial port is disconnected).
     await readLoop();
 
-    // If we leave the read loop it must be all over
+    // If we get here the read loop is finished and it must be all over
     console.log("Elvis has left the building")
 
 }
@@ -83,24 +84,28 @@ async function readLoop() {
         try {
             const { value, done } = await reader.read();
 
+            // when data arrives
             if (value) {
                 // save received data rxdata list
                 for (let i = 0; i < value.length; i++) {
-                    rxdata[writePointer++] = value[i];
-                    console.log(value[i]);
-                }
-                
-                // write Rx records to Rx box 
-                dataBoxRx.innerHTML += value + '\n'; 
 
+                    // put the new data into the rxdata array for later
+                    rxdata[writePointer++] = value[i];
+
+                    // write the new data to Rx box (in hex)
+                    dataBoxRx.innerHTML += value[i].toString(16) + ' ';
+                }
+                dataBoxRx.innerHTML += '\n';
             }
 
+            // when we close the program
             if (done) {
                 console.log('Releasing the reader');
                 reader.releaseLock();
                 return;
             }
 
+        // if we have an oopsie
         } catch (e) {
             console.log("Error fetching data in readLoop");
         }
@@ -111,8 +116,13 @@ async function readLoop() {
 // send a byte array to the serial port
 async function sendRecord(byteArray) {
     if (port != null) {
-        dataBoxTx.innerHTML += byteArray + '\n';
-        console.log(byteArray);
+
+        // write Tx data to Tx box in hex
+        for (let i = 0 ; i < byteArray.length; i++) dataBoxTx.innerHTML += byteArray[i].toString(16) + ' ';
+        dataBoxTx.innerHTML += '\n';
+
+        // send the Tx data to serial port
+        writer.write(byteArray.buffer);
         
     } else {
         console.log("sendRecord: serial port is not open");
@@ -124,7 +134,6 @@ async function sendRecord(byteArray) {
 // update the look and content of the UI based on 
 // the state of the data acquisition system
 function updateSystemState() {
-
 
   if (serialConnected) {
     connectImg.src = "images/release.PNG";

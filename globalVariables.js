@@ -5,7 +5,7 @@
 'use strict';
 
 // current version
-var currentVersion = [0,1,0];
+var currentVersion = [0,1,2];
 
 // serial port
 var port = null;
@@ -17,3 +17,5 @@ var serialConnected = false;
 var rxdata = [];
 var writePointer = 0;
 var readPointer = 0;
+
+

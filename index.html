@@ -10,20 +10,25 @@
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
 
+  <!-- these are the JavaScript files that are needed to run this page -->
   <script src="globalVariables.js"></script>
   <script src="run_control.js"></script>
   <script src="main.js" defer></script>
+  
 
 </head>
 
 <body>
   <header class="header">
+
+    <!-- clicking on the application name displays the changelog file -->
     <h1>
       <label class="iolab"> <span> 
         <a href="changelog.txt" title="Click here for changelog and other information about this application" target="_blank" style="color:rgb(255, 242, 182); text-decoration: none; "><i><b>Arduino Tester</b></i></a></span> </label> 
     </h1>
   </header>
 
+  <!-- make sure the browser being used supports the webSerial API -->
   <div id="notSupported" class="hidden">
     <b>Web Serial</b> is not supported on this device. Please
     Chrome 89 or later. For earlier version of Chrome (78 through 88) you will need to set the<br />
@@ -31,6 +36,7 @@
     <code>chrome://flags</code>
   </div>
 
+  <!-- the reset button and the connect to arduino button -->
   <div class="topcontrol">
     <p></p>
 
@@ -52,14 +58,14 @@
 
     <br />
 
-  <!-- For Debugging -->
+  <!-- text areas and buttons for debugging communication with arduino -->
   <div id="debugStuff">
 
     <div id="textAreaContainer">
       <table>
         <tr>
-          <td>Tx:</td>
-          <td>Rx:</td>
+          <td>Tx (hex):</td>
+          <td>Rx (hex):</td>
         </tr>
         <tr>
           <td><textarea id="dataBoxTx" rows="10" cols="30"
@@ -67,9 +73,15 @@
           <td><textarea id="dataBoxRx" rows="10" cols="60"
               style="overflow:scroll; resize:horizontal; min-width:200px;"></textarea></td>
         </tr>
+        <tr>
+          <td><textarea id="sendBox" rows="2" cols="30"
+              style="overflow:scroll; resize:vertical; min-width:200px; min-height:55px;"></textarea></td>
+              <td><button id="butSendChar" type="button">Send as Characters</button> </td>
+        </tr>
       </table>
     </div>
 
+    <!-- the debug button is just for - well - debugging stuff -->
     <p> <button id="butDebug" type="button">Debug</button></p>
   </div>
 
